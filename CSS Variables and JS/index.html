@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Variables and JS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h2>Update CSS Variables with <span class="h1">JS</span>
+    </h2>
+
+    <div class="controls">
+        <label for="spacing">Spacing:</label>
+        <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="blur">Blur:</label>
+        <input type="range" name="blur" min="0" max="200" value="10" data-sizing="px">
+
+        <label for="base">Base Color:</label>
+        <input type="color" name="base" value="#ffc600">
+    </div>
+
+    <img src="https://images.unsplash.com/photo-1531030874896-fdef6826f2f7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        width="800" height="500">
+    
+    <script>
+        const inputs = document.querySelectorAll('.controls input');
+        
+        /**
+         * This function handles the updates to the CSS variables.
+         * It takes the input element that triggered the event and updates the
+         * corresponding CSS variable accordingly.
+         * 
+         * @return {void} This function does not return anything.
+         */
+        function handleUpdate(){
+            // Get the suffix from the data attribute of the input element
+            // If the data attribute is not present, set the suffix to an empty string
+            const suffix = this.dataset.sizing || '';
+            
+            // Create a CSS variable string using the input element's name and value
+            // The name is prefixed with '--' to indicate a CSS variable
+            // The value is appended with the suffix
+            const cssVariableString = `--${this.name}`;
+            const cssVariableValue = this.value + suffix;
+            
+            // Set the CSS variable value on the root element (<html>)
+            // The CSS variable can then be accessed using 'var(--variable-name)' in CSS
+            document.documentElement.style.setProperty(cssVariableString, cssVariableValue);
+        }
+
+        inputs.forEach(input => input.addEventListener('change', handleUpdate));
+        inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    </script>
+
+</body>
+
+</html>
