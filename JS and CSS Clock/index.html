@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS + CSS Clock</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="clock">
+        <div class="clock-face">
+            <div class="hand hour-hand"></div>
+            <div class="hand min-hand"></div>
+            <div class="hand second-hand"></div>
+        </div>
+    </div>
+
+    <script>
+        const secondHand = document.querySelector('.second-hand');
+        const minHand = document.querySelector('.min-hand');
+        const hourHand = document.querySelector('.hour-hand')
+        /**
+         * setDate function updates the position of the hands on the clock based on the current time.
+         */
+        function setDate(){
+            // Get the current date and time.
+            const now = new Date();
+
+            // Calculate the number of seconds since the last full minute.
+            const seconds = now.getSeconds();
+
+            // Calculate the angle in degrees that the second hand should be rotated.
+            // Divide the number of seconds by 60 to get the fraction of a full circle (360 degrees).
+            // Multiply by 360 to get the total angle in degrees.
+            // Add 90 degrees to account for the fact that the rotation point is at 12 o'clock.
+            const secondDegree = ((seconds/60) * 360) + 90;
+
+            // Update the position of the second hand by setting its transform property to rotate the specified number of degrees.
+            secondHand.style.transform = `rotate(${secondDegree}deg)`;
+
+            // Calculate the number of minutes since the last full hour.
+            
+            const minutes = now.getMinutes();
+
+            // Calculate the angle in degrees that the minute hand should be rotated.
+            // Divide the number of minutes by 60 to get the fraction of a full circle (360 degrees).
+            // Multiply by 360 to get the total angle in degrees.
+            // Add 90 degrees to account for the fact that the rotation point is at 12 o'clock.
+            const minuteDegree = ((minutes/60) * 360) + 90;
+
+            // Update the position of the minute hand by setting its transform property to rotate the specified number of degrees.
+            minHand.style.transform = `rotate(${minuteDegree}deg)`;
+
+            // Calculate the number of hours since midnight.
+            const hours = now.getHours();
+
+            // Calculate the angle in degrees that the hour hand should be rotated.
+            // Divide the number of hours by 12 to get the fraction of a full circle (360 degrees).
+            // Multiply by 360 to get the total angle in degrees.
+            // Add 90 degrees to account for the fact that the rotation point is at 12 o'clock.
+            const hourDegree = ((hours/12) * 360) + 90;
+
+            // Update the position of the hour hand by setting its transform property to rotate the specified number of degrees.
+            hourHand.style.transform = `rotate(${hourDegree}deg)`;
+        }
+        setInterval(setDate, 1000);
+    </script>
+</body>
+</html>
